@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import CountryList from './CountryList'
 
 function Search({ countries }) {
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchtext] = useState('')
   const [filteredCountry, setFilteredCountry] = useState(countries)
 
-  const handleChange = (value) => {
-    setSearchText(value)
-    filterData(value)
+  const filterdData = () => {
+    const filteredData = countries.filter((country) => {
+      return country.toLowerCase().includes(searchText.toLowerCase())
+    })
+    setFilteredCountry(filteredData)
   }
 
-  const filterData = () => {
-    const filterData = countries.filter((item) => {
-      return item.toLowerCase().includes(searchText.toLowerCase())
-    })
-    setFilteredCountry(filterData)
+  const handleChange = (value) => {
+    setSearchtext(value)
+    filterdData(value)
   }
 
   return (
@@ -28,9 +28,9 @@ function Search({ countries }) {
         placeholder='Enter Country Name'
       />
       <div>
-        {filteredCountry.map((country, i) =>
-          searchText === '' ? null : <CountryList country={country} key={i} />
-        )}
+        {filteredCountry.map((country, i) => {
+          return searchText === '' ? null : <CountryList country={country} />
+        })}
       </div>
     </>
   )
